@@ -5,6 +5,7 @@ import dev.tauri.lpc.util.ComponentUtils;
 import dev.tauri.lpc.util.LPUtils;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -13,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ChatListener {
     @SubscribeEvent
     public static void onPlayerDisplayNameGet(PlayerEvent.NameFormat event) {
-        if (event.getEntity() instanceof ServerPlayer sp)
+        if ((event.getEntity() instanceof ServerPlayer sp) && !(event.getEntity() instanceof FakePlayer))
             event.setDisplayname(ComponentUtils.toMCComponent(ComponentUtils.colorFormat(LPUtils.getPlayerDisplayName(sp))));
     }
 }
